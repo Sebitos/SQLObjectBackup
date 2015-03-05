@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLObjectBackup", "SQLObjectBackup\SQLObjectBackup.csproj", "{387A1A61-433B-4D0D-8C81-7212898DE019}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLObjectBackup.UnitTesting", "SQLObjectBackup.UnitTesting\SQLObjectBackup.UnitTesting.csproj", "{F2661C9D-C563-476C-ADAD-FA0415B8D579}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{387A1A61-433B-4D0D-8C81-7212898DE019}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{387A1A61-433B-4D0D-8C81-7212898DE019}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{387A1A61-433B-4D0D-8C81-7212898DE019}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{387A1A61-433B-4D0D-8C81-7212898DE019}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2661C9D-C563-476C-ADAD-FA0415B8D579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2661C9D-C563-476C-ADAD-FA0415B8D579}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2661C9D-C563-476C-ADAD-FA0415B8D579}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2661C9D-C563-476C-ADAD-FA0415B8D579}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
