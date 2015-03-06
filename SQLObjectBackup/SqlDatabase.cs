@@ -32,6 +32,7 @@ namespace SQLObjectBackup
             IsWindowsAuth = true;
         }
         public SqlDatabase(string databaseName) : this("localhost", databaseName) { }
+
         /// <summary>
         /// sql auth constructor
         /// </summary>
