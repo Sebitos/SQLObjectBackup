@@ -40,10 +40,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ISqlDatabase.cs" />
+    <Compile Include="SqlConnectGUI.cs" />
     <Compile Include="SqlDatabase.cs" />
     <Compile Include="IDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlDatabaseException.cs" />
+    <Compile Include="SqlGetDatabases.cs" />
     <Compile Include="SqlStoredProcedure.cs" />
     <Compile Include="SqlTable.cs" />
     <Compile Include="TableBackup.cs" />

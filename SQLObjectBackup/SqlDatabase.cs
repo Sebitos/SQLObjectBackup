@@ -20,7 +20,7 @@ namespace SQLObjectBackup
         public bool IsWindowsAuth { get; private set; }
         public string SqlUserName { get; private set; }
         public string Password { get; private set; }
-        public IEnumerable<SqlTable> Tables { get { return GetTables(); } private set { _tables = value; } }
+        public IEnumerable<SqlTable> Tables { get { return GetTables(); } private set { _tables = value; } }       
 
         /// <summary>
         /// windows auth constructor
@@ -69,7 +69,6 @@ namespace SQLObjectBackup
                 }
             }
         }
-
         public IEnumerable<SqlTable> GetTables()
         {
             DataTable output = new DataTable();
