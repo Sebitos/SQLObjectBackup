@@ -107,7 +107,7 @@ namespace SQLObjectBackup
             else
                 return sqlTables.First();
         }
-        private SqlTable GetTable(int objectId)
+        public SqlTable GetTable(int objectId)
         {
             IEnumerable<SqlTable> sqlTables = GetTables().Where(m => m.ObjectId == objectId);
             if (sqlTables.Count() == 0)
