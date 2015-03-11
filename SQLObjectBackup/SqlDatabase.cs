@@ -14,13 +14,15 @@ namespace SQLObjectBackup
         private const string _metaDataTableName = "meta";
 
         private IEnumerable<SqlTable> _tables;
+        private IEnumerable<TableConstraints> _tableConstraints;
 
         public string SqlServerName { get; private set; }
         public string DatabaseName { get; private set; }
         public bool IsWindowsAuth { get; private set; }
         public string SqlUserName { get; private set; }
         public string Password { get; private set; }
-        public IEnumerable<SqlTable> Tables { get { return GetTables(); } private set { _tables = value; } }       
+        public IEnumerable<SqlTable> Tables { get { return GetTables(); } private set { _tables = value; } }
+        public IEnumerable<TableConstraints> ConstraintTable { get { return GetTableConstraints(); } private set { _tableConstraints = value; } }
 
         /// <summary>
         /// windows auth constructor
@@ -114,6 +116,57 @@ namespace SQLObjectBackup
                 return null;
             else
                 return sqlTables.First();
+        }
+
+        public IEnumerable<TableConstraints> GetTableConstraints()
+        {
+            DataTable output = new DataTable();
+
+            using (SqlConnection databaseConnection = new SqlConnection(GetConnectionString()))
+            using (SqlCommand sqlCmd = new SqlCommand())
+            using (SqlDataAdapter sda = new SqlDataAdapter(sqlCmd))
+            {
+                sqlCmd.Connection = databaseConnection;
+                sqlCmd.CommandText =
+                    @"SELECT    
+	                         KCU1.CONSTRAINT_NAME AS 'ConstraintName'
+                           , quotename(KCU1.TABLE_SCHEMA) + '.' + quotename(KCU1.TABLE_NAME) AS 'TableName'
+                           , KCU1.COLUMN_NAME AS 'ColumnName'
+                           , quotename(KCU2.TABLE_SCHEMA) + '.' + quotename(KCU2.TABLE_NAME) AS 'TableReferenceName'
+                           , KCU2.CONSTRAINT_NAME AS 'TableReferenceConstraintName'
+                           , KCU2.COLUMN_NAME AS 'TableReferenceColumnName'
+                        FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS RC
+                        JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE KCU1
+                           ON KCU1.CONSTRAINT_CATALOG = RC.CONSTRAINT_CATALOG
+                           AND KCU1.CONSTRAINT_SCHEMA = RC.CONSTRAINT_SCHEMA
+                           AND KCU1.CONSTRAINT_NAME = RC.CONSTRAINT_NAME
+                        JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE KCU2
+                           ON KCU2.CONSTRAINT_CATALOG = RC.UNIQUE_CONSTRAINT_CATALOG
+                           AND KCU2.CONSTRAINT_SCHEMA = RC.UNIQUE_CONSTRAINT_SCHEMA
+                           AND KCU2.CONSTRAINT_NAME = RC.UNIQUE_CONSTRAINT_NAME
+                        WHERE KCU1.ORDINAL_POSITION = KCU2.ORDINAL_POSITION
+                        ORDER BY TableName;";
+
+                sda.Fill(output);
+
+                foreach (DataRow row in output.Rows)
+                    yield return new TableConstraints(
+                        row["Constraint_Name"].ToString(),
+                        row["TableName"].ToString(),
+                        row["ColumnName"].ToString(),
+                        row["TableReferenceName"].ToString(),
+                        row["TableReferenceConstraintName"].ToString(),
+                        row["TableReferenceColumnName"].ToString());
+            }
+        }
+
+        public TableConstraints TableConstraint(string fullyQualifiedTableName)
+        {
+            IEnumerable<TableConstraints> getTableConstraints = GetTableConstraints().Where(m => m.TableName == fullyQualifiedTableName);
+            if (getTableConstraints.Count() == 0)
+                return null;
+            else
+                return getTableConstraints.First();
         }
 
         public int GetRowCount(SqlTable sqlTable)
