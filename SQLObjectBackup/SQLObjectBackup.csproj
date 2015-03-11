@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ISqlDatabase.cs" />
-    <Compile Include="SqlConnectGUI.cs" />
     <Compile Include="SqlDatabase.cs" />
     <Compile Include="IDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
