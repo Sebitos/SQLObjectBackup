@@ -12,6 +12,8 @@ namespace SQLObjectBackup
     {
         private const string _backupSchemaName = "sqlob";
         private const string _metaDataTableName = "meta";
+        private const string _dboSchema = "dbo";
+        private string _selectSchemaName = "";
 
         private IEnumerable<SqlTable> _tables;
         private IEnumerable<TableConstraints> _tableConstraints;
@@ -151,7 +153,7 @@ namespace SQLObjectBackup
 
                 foreach (DataRow row in output.Rows)
                     yield return new TableConstraints(
-                        row["Constraint_Name"].ToString(),
+                        row["ConstraintName"].ToString(),
                         row["TableName"].ToString(),
                         row["ColumnName"].ToString(),
                         row["TableReferenceName"].ToString(),

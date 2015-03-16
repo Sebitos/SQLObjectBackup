@@ -22,8 +22,8 @@ namespace SQLObjectBackupGUI
         SqlDatabase DB;
         SqlTable table;
         int rowCount = 0;
-        TableConstraints foreignKey;
-        string tableName = "";
+        TableConstraints foreignKeyTable;
+        string isFK = "";
 
         /// <summary>
         /// To validate if selectAllButton or unselectAllButton is pressed.
@@ -139,6 +139,10 @@ namespace SQLObjectBackupGUI
         private void isForeignKey(string fullTableName)
         {
             DB = new SqlDatabase(selectedDB);
+
+            
+
+
         }
         /// <summary>
         /// Method to add or delete rows in the DataGridView.
@@ -150,7 +154,16 @@ namespace SQLObjectBackupGUI
         {
             if (isSelectAllButtonPressed == true)
             {
-                insertTableInfo(table.ObjectId, table.FullyQuotedName, rowCount);
+                foreignKeyTable = DB.TableConstraint(table.FullyQuotedName);
+
+                if (foreignKeyTable == null)
+                {
+                    insertTableInfo(table.ObjectId, table.FullyQuotedName, rowCount, "");
+                }
+                else
+                {
+                    insertTableInfo(table.ObjectId, table.FullyQuotedName, rowCount, foreignKeyTable.ConstraintName);
+                }                    
             }
             else if (isUnselectAllButtonPressed == true)
             {
@@ -167,8 +180,16 @@ namespace SQLObjectBackupGUI
                     DB = new SqlDatabase(selectedDB);
                     table = DB.GetTable(tableid);
                     rowCount = DB.GetRowCount(table);
+                    foreignKeyTable = DB.TableConstraint(table.FullyQuotedName);
 
-                    insertTableInfo(table.ObjectId, table.FullyQuotedName, rowCount);
+                    if (foreignKeyTable ==  null)
+                    {
+                        insertTableInfo(table.ObjectId, table.FullyQuotedName, rowCount, "");
+                    }
+                    else
+                    {
+                        insertTableInfo(table.ObjectId, table.FullyQuotedName, rowCount, foreignKeyTable.ConstraintName);
+                    }                    
 
                     int tablesSelected = tablesCheckedList.CheckedItems.Count;
                     tablesSelected = tablesSelected + 1;
@@ -194,9 +215,10 @@ namespace SQLObjectBackupGUI
         /// <param name="ObjectId"></param>
         /// <param name="FullyQuotedName"></param>
         /// <param name="rowCount"></param>
-        private void insertTableInfo(int ObjectId, string FullyQuotedName, int rowCount)
+        /// <param name="foreignKey"></param>
+        private void insertTableInfo(int ObjectId, string FullyQuotedName, int rowCount, string foreignKey)
         {
-            tableInfoGrid.Rows.Add(ObjectId, FullyQuotedName, rowCount);
+            tableInfoGrid.Rows.Add(ObjectId, FullyQuotedName, rowCount, foreignKey);
         }
         /// <summary>
         /// Delete row from grid based on tableid.

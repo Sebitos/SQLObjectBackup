@@ -49,6 +49,10 @@
             this.selectAllButton = new System.Windows.Forms.Button();
             this.unselectAllButton = new System.Windows.Forms.Button();
             this.tableInfoGrid = new System.Windows.Forms.DataGridView();
+            this.TablesID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TableName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RowsCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HasForeignKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.tablesCheckedList = new System.Windows.Forms.CheckedListBox();
             this.databaseComboBox = new System.Windows.Forms.ComboBox();
@@ -56,10 +60,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.managedPanel2 = new Controls.ManagedPanel();
-            this.TablesID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TableName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RowsCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HasForeignKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.leftPanel.SuspendLayout();
             this.panelManager1.SuspendLayout();
             this.managedPanel1.SuspendLayout();
@@ -219,6 +219,7 @@
             // 
             // directoryButton
             // 
+            this.directoryButton.Enabled = false;
             this.directoryButton.Location = new System.Drawing.Point(586, 456);
             this.directoryButton.Name = "directoryButton";
             this.directoryButton.Size = new System.Drawing.Size(31, 22);
@@ -300,6 +301,30 @@
             this.tableInfoGrid.Size = new System.Drawing.Size(601, 187);
             this.tableInfoGrid.TabIndex = 11;
             // 
+            // TablesID
+            // 
+            this.TablesID.HeaderText = "Table ID";
+            this.TablesID.Name = "TablesID";
+            this.TablesID.ReadOnly = true;
+            // 
+            // TableName
+            // 
+            this.TableName.HeaderText = "Table Name";
+            this.TableName.Name = "TableName";
+            this.TableName.ReadOnly = true;
+            // 
+            // RowsCount
+            // 
+            this.RowsCount.HeaderText = "Row Count";
+            this.RowsCount.Name = "RowsCount";
+            this.RowsCount.ReadOnly = true;
+            // 
+            // HasForeignKey
+            // 
+            this.HasForeignKey.HeaderText = "Has Foreign Key";
+            this.HasForeignKey.Name = "HasForeignKey";
+            this.HasForeignKey.ReadOnly = true;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -363,30 +388,6 @@
             this.managedPanel2.Name = "managedPanel2";
             this.managedPanel2.Size = new System.Drawing.Size(0, 0);
             this.managedPanel2.Text = "managedPanel2";
-            // 
-            // TablesID
-            // 
-            this.TablesID.HeaderText = "Table ID";
-            this.TablesID.Name = "TablesID";
-            this.TablesID.ReadOnly = true;
-            // 
-            // TableName
-            // 
-            this.TableName.HeaderText = "Table Name";
-            this.TableName.Name = "TableName";
-            this.TableName.ReadOnly = true;
-            // 
-            // RowsCount
-            // 
-            this.RowsCount.HeaderText = "Row Count";
-            this.RowsCount.Name = "RowsCount";
-            this.RowsCount.ReadOnly = true;
-            // 
-            // HasForeignKey
-            // 
-            this.HasForeignKey.HeaderText = "Has Foreign Key";
-            this.HasForeignKey.Name = "HasForeignKey";
-            this.HasForeignKey.ReadOnly = true;
             // 
             // BackupTable
             // 
